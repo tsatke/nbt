@@ -7,13 +7,19 @@ import (
 )
 
 // NewCompoundTag returns a new Compound tag
-func NewCompoundTag(name string, val map[string]Tag) *Compound {
-	return &Compound{
+func NewCompoundTag(name string, val []Tag) *Compound {
+	compound := &Compound{
 		tagBase: &tagBase{
 			name: name,
 		},
-		Value: val,
+		Value: make(map[string]Tag),
 	}
+
+	for _, tag := range val {
+		compound.Value[tag.Name()] = tag
+	}
+
+	return compound
 }
 
 // Compound is a map contained tags
