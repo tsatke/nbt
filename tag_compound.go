@@ -52,7 +52,7 @@ func (t *Compound) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 			return fmt.Errorf("write tag: %w", err)
 		}
 	}
-	if err := encoder.WriteTag(NewEndTag()); err != nil {
+	if err := NewEndTag().WriteTo(writer, order); err != nil {
 		return fmt.Errorf("write end: %w", err)
 	}
 	return nil
