@@ -47,7 +47,7 @@ func (d decoder) ReadTag() (Tag, error) {
 	tag.SetName(name)
 
 	if err := tag.ReadFrom(d.rd, d.bo); err != nil {
-		return nil, fmt.Errorf("read from: %w", err)
+		return nil, fmt.Errorf("read %s with name '%s' from: %w", tag.ID(), tag.Name(), err)
 	}
 	return tag, nil
 }

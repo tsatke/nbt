@@ -35,7 +35,7 @@ func (e encoder) WriteTag(tag Tag) error {
 		return fmt.Errorf("write tag name: %w", err)
 	}
 	if err := tag.WriteTo(e.w, e.bo); err != nil {
-		return fmt.Errorf("write tag: %w", err)
+		return fmt.Errorf("write %s with name '%s': %w", tag.Name(), tag.ID(), err)
 	}
 	return nil
 }
