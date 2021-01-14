@@ -35,13 +35,13 @@ func (t *LongArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 		return err
 	}
 
-	buf := make([]int64, 0, arrLen)
+	buf := make([]int64, arrLen)
 	for i := range buf {
 		val, err := readUint64(reader, order)
 		if err != nil {
 			return fmt.Errorf("element %d: %w", i, err)
 		}
-		buf = append(buf, int64(val))
+		buf[i] = int64(val)
 	}
 	t.Value = buf
 	return nil

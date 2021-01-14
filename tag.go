@@ -7,19 +7,71 @@ import (
 
 var (
 	tagGen = [NumIDTags]func() Tag{
-		func() Tag { return new(End) },
-		func() Tag { return new(Byte) },
-		func() Tag { return new(Short) },
-		func() Tag { return new(Int) },
-		func() Tag { return new(Long) },
-		func() Tag { return new(Float) },
-		func() Tag { return new(Double) },
-		func() Tag { return new(ByteArray) },
-		func() Tag { return new(String) },
-		func() Tag { return new(List) },
-		func() Tag { return new(Compound) },
-		func() Tag { return new(IntArray) },
-		func() Tag { return new(LongArray) },
+		func() Tag {
+			return &End{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Byte{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Short{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Int{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Long{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Float{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Double{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &ByteArray{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &String{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &List{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &Compound{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &IntArray{
+				tagBase: &tagBase{},
+			}
+		},
+		func() Tag {
+			return &LongArray{
+				tagBase: &tagBase{},
+			}
+		},
 	}
 	tagNames = [NumIDTags]string{
 		"End",

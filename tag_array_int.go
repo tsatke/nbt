@@ -33,13 +33,13 @@ func (t *IntArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 		return err
 	}
 
-	buf := make([]int32, 0, arrLen)
+	buf := make([]int32, arrLen)
 	for i := range buf {
 		val, err := readUint32(reader, order)
 		if err != nil {
 			return fmt.Errorf("element %d: %w", i, err)
 		}
-		buf = append(buf, int32(val))
+		buf[i] = int32(val)
 	}
 	t.Value = buf
 	return nil

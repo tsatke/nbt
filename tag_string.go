@@ -7,34 +7,27 @@ import (
 	"strconv"
 )
 
+var _ Tag = (*String)(nil)
+
 // NewStringTag returns a new String tag
 func NewStringTag(name string, val string) *String {
 	return &String{
-		name:  name,
+		tagBase: &tagBase{
+			name: name,
+		},
 		Value: val,
 	}
 }
 
-type foo string
-
 // String is a tag for string
 type String struct {
-	name  string
+	*tagBase
 	Value string
 }
 
 // ID returns tag id
 func (t *String) ID() ID {
 	return IDTagString
-}
-
-func (t *String) Name() string {
-	return t.name
-}
-
-// SetName set name in tag
-func (t *String) SetName(name string) {
-	t.name = name
 }
 
 func (t *String) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
