@@ -30,7 +30,7 @@ func (t *LongArray) ID() ID {
 }
 
 func (t *LongArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
-	arrLen, err := readUint64(reader, order)
+	arrLen, err := readUint32(reader, order)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func (t *LongArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 }
 
 func (t *LongArray) WriteTo(writer io.Writer, order binary.ByteOrder) error {
-	if err := writeUint64(writer, order, uint64(len(t.Value))); err != nil {
+	if err := writeUint32(writer, order, uint32(len(t.Value))); err != nil {
 		return fmt.Errorf("write length: %w", err)
 	}
 	for i, val := range t.Value {
