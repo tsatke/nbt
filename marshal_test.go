@@ -186,3 +186,35 @@ func (suite *MarshalSuite) TestMarshalWriter_CompoundNestedPointer() {
 		},
 	})
 }
+
+func (suite *MarshalSuite) TestMarshalWriter_StructTag_Ignore() {
+	type t struct {
+		X string
+		Y string
+		Z string `nbt:"-"`
+	}
+	suite.expect(NewCompoundTag("", []Tag{
+		NewStringTag("X", "a"),
+		NewStringTag("Y", "b"),
+	}), t{
+		X: "a",
+		Y: "b",
+		Z: "c", // value that must be ignored
+	})
+}
+
+func (suite *MarshalSuite) TestMarshalWriter_StructTag_Omitempty() {
+	type t struct {
+		X string
+		Y string
+		Z string `nbt:"omitempty"`
+	}
+	suite.expect(NewCompoundTag("", []Tag{
+		NewStringTag("X", "a"),
+		NewStringTag("Y", "b"),
+	}), t{
+		X: "a",
+		Y: "b",
+		Z: "", // empty value that must be omitted
+	})
+}

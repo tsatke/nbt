@@ -7,10 +7,6 @@ import (
 	"reflect"
 )
 
-const (
-	structTag = "nbt"
-)
-
 func UnmarshalReader(rd io.Reader, order binary.ByteOrder, v interface{}) error {
 	dec := NewDecoder(rd, order)
 	tag, err := dec.ReadTag()
@@ -64,8 +60,11 @@ func unmarshalInto(tag Tag, target reflect.Value) error {
 			typeField := targetType.Field(i)
 			field := target.Field(i)
 			actualName := typeField.Name
-			if tagValue, ok := typeField.Tag.Lookup(structTag); ok {
-				actualName = tagValue
+			tagValue := parseStructTag(typeField.Tag.Get(structTag))
+			if tagValue.ignore {
+				continue
+			} else if tagValue.name != "" {
+				actualName = tagValue.name
 			}
 
 			actualField := field

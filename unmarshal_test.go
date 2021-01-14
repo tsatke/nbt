@@ -188,3 +188,43 @@ func (suite *UnmarshalSuite) TestUnmarshalReader_List() {
 		"index2",
 	}, target)
 }
+
+func (suite *UnmarshalSuite) TestUnmarshalReader_StructTag_Ignore() {
+	type t struct {
+		X string
+		Y string
+		Z string `nbt:"-"`
+	}
+	var target t
+	suite.writeTag(NewCompoundTag("myName", []Tag{
+		NewStringTag("X", "xVal"),
+		NewStringTag("Y", "yVal"),
+		NewStringTag("Z", "zVal"),
+	}), binary.BigEndian)
+	suite.NoError(UnmarshalReader(suite.buf, binary.BigEndian, &target))
+	suite.EqualValues(t{
+		X: "xVal",
+		Y: "yVal",
+		Z: "", // must be empty because ignored
+	}, target)
+}
+
+func (suite *UnmarshalSuite) TestUnmarshalReader_StructTag_Omitempty() {
+	type t struct {
+		X string
+		Y string
+		Z string `nbt:"omitempty"`
+	}
+	var target t
+	suite.writeTag(NewCompoundTag("myName", []Tag{
+		NewStringTag("X", "xVal"),
+		NewStringTag("Y", "yVal"),
+		NewStringTag("Z", "zVal"),
+	}), binary.BigEndian)
+	suite.NoError(UnmarshalReader(suite.buf, binary.BigEndian, &target))
+	suite.EqualValues(t{
+		X: "xVal",
+		Y: "yVal",
+		Z: "zVal", // omitempty does't have an effect during unmarshalling
+	}, target)
+}

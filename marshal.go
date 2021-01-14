@@ -60,8 +60,13 @@ func createTag(value reflect.Value) (Tag, error) {
 			typeField := typ.Field(i)
 			field := value.Field(i)
 			name := typeField.Name
-			if tagValue, ok := typeField.Tag.Lookup(structTag); ok {
-				name = tagValue
+			tagValue := parseStructTag(typeField.Tag.Get(structTag))
+			if tagValue.ignore {
+				continue
+			} else if field.IsZero() && tagValue.omitempty {
+				continue
+			} else if tagValue.name != "" {
+				name = tagValue.name
 			}
 			created, err := createTag(field)
 			if err != nil {
