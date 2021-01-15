@@ -1,0 +1,15 @@
+goos: darwin
+goarch: amd64
+pkg: github.com/tsatke/nbt
+BenchmarkDecode_Bigtest-16    	  141205	      7945 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  147604	      7963 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  152716	      8216 ns/op	    6371 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  127966	      8627 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  144601	      9191 ns/op	    6371 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  146869	      8563 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  139010	      9006 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  145464	      8582 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  148630	      8485 ns/op	    6370 B/op	     223 allocs/op
+BenchmarkDecode_Bigtest-16    	  141649	      8471 ns/op	    6371 B/op	     223 allocs/op
+PASS
+ok  	github.com/tsatke/nbt	14.127s

@@ -1,0 +1,4 @@
+TagCompound('hello world'): 1 entries
+{
+	TagString('value'): 'Hello, World!'
+}
