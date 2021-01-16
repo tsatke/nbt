@@ -2,6 +2,7 @@ package nbt
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -90,8 +91,11 @@ var (
 	}
 )
 
-func newTagFromID(id ID) Tag {
-	return tagGen[id]()
+func newTagFromID(id ID) (Tag, error) {
+	if id >= NumIDTags {
+		return nil, fmt.Errorf("unknown tag %s", id)
+	}
+	return tagGen[id](), nil
 }
 
 type Identifier interface {

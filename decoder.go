@@ -35,7 +35,10 @@ func (d decoder) ReadTag() (Tag, error) {
 	}
 	id := ID(idByte)
 
-	tag := newTagFromID(id)
+	tag, err := newTagFromID(id)
+	if err != nil {
+		return nil, fmt.Errorf("new tag: %w", err)
+	}
 	if tag.ID() == IDTagEnd {
 		return tag, nil
 	}

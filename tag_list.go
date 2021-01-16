@@ -44,7 +44,10 @@ func (t *List) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 
 	t.Value = make([]Tag, listLen)
 	for i := range t.Value {
-		tag := newTagFromID(t.ListType)
+		tag, err := newTagFromID(t.ListType)
+		if err != nil {
+			return fmt.Errorf("new tag: %w", err)
+		}
 		if err := tag.ReadFrom(reader, order); err != nil {
 			return fmt.Errorf("read tag: %w", err)
 		}
