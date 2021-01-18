@@ -7,6 +7,7 @@ import (
 	"reflect"
 )
 
+// UnmarshalReader unmarshals NBT data from the given reader into the given interface.
 func UnmarshalReader(rd io.Reader, order binary.ByteOrder, v interface{}) error {
 	dec := NewDecoder(rd, order)
 	tag, err := dec.ReadTag()

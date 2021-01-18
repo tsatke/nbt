@@ -6,7 +6,7 @@ import (
 	"io"
 )
 
-// NewListTag returns a new List tag
+// NewListTag returns a new List tag.
 func NewListTag(name string, val []Tag, typ ID) *List {
 	return &List{
 		tagBase: &tagBase{
@@ -17,7 +17,7 @@ func NewListTag(name string, val []Tag, typ ID) *List {
 	}
 }
 
-// List is a container for tags
+// List is a list of unnamed tags.
 type List struct {
 	*tagBase
 	Value []Tag
@@ -25,11 +25,12 @@ type List struct {
 	ListType ID
 }
 
-// ID returns tag id
+// ID returns this tag's id.
 func (t *List) ID() ID {
 	return IDTagList
 }
 
+// ReadFrom reads a list from the given reader.
 func (t *List) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	idByte, err := readByte(reader, order)
 	if err != nil {
@@ -57,6 +58,7 @@ func (t *List) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	return nil
 }
 
+// WriteTo writes this tag to the given writer.
 func (t *List) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 	if err := writeByte(writer, order, byte(t.ListType)); err != nil {
 		return fmt.Errorf("write list type: %w", err)

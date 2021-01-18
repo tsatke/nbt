@@ -6,7 +6,7 @@ import (
 	"io"
 )
 
-// NewCompoundTag returns a new Compound tag
+// NewCompoundTag returns a new Compound tag.
 func NewCompoundTag(name string, val []Tag) *Compound {
 	compound := &Compound{
 		tagBase: &tagBase{
@@ -22,17 +22,18 @@ func NewCompoundTag(name string, val []Tag) *Compound {
 	return compound
 }
 
-// Compound is a map contained tags
+// Compound is a list of named tags.
 type Compound struct {
 	*tagBase
 	Value map[string]Tag
 }
 
-// ID returns tag id
+// ID returns this tag's id.
 func (t *Compound) ID() ID {
 	return IDTagCompound
 }
 
+// ReadFrom reads a compound tag from the given reader.
 func (t *Compound) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	t.Value = make(map[string]Tag)
 	decoder := NewDecoder(reader, order)
@@ -51,6 +52,7 @@ func (t *Compound) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	return nil
 }
 
+// WriteTo writes this tag to the given writer.
 func (t *Compound) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 	encoder := NewEncoder(writer, order)
 	for _, tag := range t.Value {
@@ -64,11 +66,13 @@ func (t *Compound) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 	return nil
 }
 
+// Get returns the named tag with the given name in this compound, or false if no such tag exists.
 func (t *Compound) Get(name string) (Tag, bool) {
 	tag, ok := t.Value[name]
 	return tag, ok
 }
 
+// Put puts the given named tag into this compound.
 func (t *Compound) Put(tag Tag) {
 	t.Value[tag.Name()] = tag
 }

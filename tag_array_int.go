@@ -27,6 +27,7 @@ func (t *IntArray) ID() ID {
 	return IDTagIntArray
 }
 
+// ReadFrom reads an int array from the given reader.
 func (t *IntArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	arrLen, err := readUint32(reader, order)
 	if err != nil {
@@ -45,6 +46,7 @@ func (t *IntArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	return nil
 }
 
+// WriteTo writes this int array to the given writer.
 func (t *IntArray) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 	if err := writeUint32(writer, order, uint32(len(t.Value))); err != nil {
 		return fmt.Errorf("write length: %w", err)
@@ -55,19 +57,4 @@ func (t *IntArray) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 		}
 	}
 	return nil
-}
-
-// ToIntArray returns value as []int32
-func (t *IntArray) ToIntArray() ([]int32, error) {
-	return t.Value, nil
-}
-
-// ToLongArray returns value as []int64
-func (t *IntArray) ToLongArray() ([]int64, error) {
-	result := make([]int64, len(t.Value))
-	for i := 0; i < len(result); i++ {
-		result[i] = int64(t.Value[i])
-	}
-
-	return result, nil
 }

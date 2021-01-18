@@ -16,13 +16,11 @@ func (w *lineWriter) println(line string) {
 	_, _ = io.WriteString(w.out, w.indent+line+"\n")
 }
 
-func (w *lineWriter) printSingleValueTag(id ID, name string, value interface{}) {
-	w.println(fmt.Sprintf("%s('%s'): %v", id, name, value))
-}
-
 func (w *lineWriter) indentUp()   { w.indent += "\t" }
 func (w *lineWriter) indentDown() { w.indent = w.indent[:len(w.indent)-1] }
 
+// ToString converts the given tag to a human readable string representation.
+// This is expensive.
 func ToString(tag Tag) string {
 	var buf bytes.Buffer
 	w := &lineWriter{
@@ -74,7 +72,7 @@ func toString(w *lineWriter, tag Tag) {
 		w.indentUp()
 		// sort keys alphabetically, at least in ToString
 		var keys []string
-		for k, _ := range values {
+		for k := range values {
 			keys = append(keys, k)
 		}
 		sort.Strings(keys)

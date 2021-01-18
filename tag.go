@@ -83,56 +83,30 @@ func newTagFromID(id ID) (Tag, error) {
 	return tagGen[id](), nil
 }
 
+// Identifier is something with an ID.
 type Identifier interface {
 	ID() ID
 }
 
+// Namer is something that has a name. The name is mutable.
 type Namer interface {
 	Name() string
 	SetName(string)
 }
 
+// ReaderFrom is something that can read from a reader respecting
+// a byte order.
 type ReaderFrom interface {
 	ReadFrom(io.Reader, binary.ByteOrder) error
 }
 
+// WriterTo is something that can write to a writer respecting
+// a byte order.
 type WriterTo interface {
 	WriteTo(io.Writer, binary.ByteOrder) error
 }
 
-type NumericConverter interface {
-	ToByte() (byte, error)
-	ToUint() (uint, error)
-	ToUint8() (uint8, error)
-	ToUint16() (uint16, error)
-	ToUint32() (uint32, error)
-	ToUint64() (uint64, error)
-}
-
-type FloatingPointConverter interface {
-	ToFloat32() (float32, error)
-	ToFloat64() (float64, error)
-}
-
-type BoolConverter interface {
-	ToBool() (bool, error)
-}
-
-type RuneConverter interface {
-	ToRune() (rune, error)
-}
-
-type ArrayConverter interface {
-	ToByteArray() ([]byte, error)
-	ToIntArray() ([]int32, error)
-	ToLongArray() ([]int64, error)
-}
-
-type StringConverter interface {
-	ToString() (string, error)
-}
-
-// Tag is a nbt tag interface
+// Tag is an NBT tag.
 type Tag interface {
 	Identifier
 	Namer

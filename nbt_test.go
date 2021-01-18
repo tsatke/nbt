@@ -63,6 +63,7 @@ func (suite *NBTSuite) testAndCompareOutput(testName string, expected Tag) {
 
 		stringRep := ToString(expected)
 		expectedData, err := ioutil.ReadAll(output)
+		suite.NoError(err)
 		suite.Equal(string(expectedData), stringRep)
 
 		suite.Equal(ToString(expected), ToString(tag))

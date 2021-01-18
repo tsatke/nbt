@@ -9,6 +9,8 @@ type simpleMapper struct {
 	tag Tag
 }
 
+// NewSimpleMapper creates a new mapper on the given source tag.
+// It doesn't do any kind of caching or other performance improvements.
 func NewSimpleMapper(source Tag) Mapper {
 	return &simpleMapper{
 		tag: source,

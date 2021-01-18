@@ -7,6 +7,8 @@ import (
 	"reflect"
 )
 
+// MarshalWriter marshals the given val onto the given writer as an NBT tag.
+// The given byte order is respected.
 func MarshalWriter(w io.Writer, order binary.ByteOrder, val interface{}) error {
 	value := reflect.ValueOf(val)
 	if value.Kind() == reflect.Ptr {

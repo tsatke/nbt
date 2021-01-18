@@ -6,44 +6,34 @@ package nbt
 type ID byte
 
 const (
-	// IDTagEnd signifies end for compound tag
-	// Payload: none
+	// IDTagEnd indicates the end for a compound tag.
 	IDTagEnd ID = iota // TagEnd
 
-	// IDTagByte is a signed byte (-128 to 127)
-	// Payload is 1byte
+	// IDTagByte is a signed byte (-128 to 127).
 	IDTagByte // TagByte
 
-	// IDTagShort is a signed short (-32768 to 32767)
-	// Payload is 2 bytes
+	// IDTagShort is a signed short (-32768 to 32767).
 	IDTagShort // TagShort
 
-	// IDTagInt is a signed int (-2147483648 to 2147483647)
-	// Payload is 4 bytes
+	// IDTagInt is a signed int (-2147483648 to 2147483647).
 	IDTagInt // TagInt
 
-	// IDTagLong is a signed long (-9223372036854775808 to 9223372036854775807)
-	// Payload is 8 bytes
+	// IDTagLong is a signed long (-9223372036854775808 to 9223372036854775807).
 	IDTagLong // TagLong
 
-	// IDTagFloat is a signed single float (IEEE-754)
-	// Payload is 4 bytes
+	// IDTagFloat is a signed float32 (IEEE-754).
 	IDTagFloat // TagFloat
 
-	// IDTagDouble is a signed single double (IEEE-754)
-	// Payload is 8 bytes
+	// IDTagDouble is a signed float64 (IEEE-754).
 	IDTagDouble // TagDouble
 
-	// IDTagByteArray is a array of signed bytes
-	// Payload is 4 bytes(len of data with signed int) + len bytes
+	// IDTagByteArray is a array of signed bytes.
 	IDTagByteArray // TagByteArray
 
-	// IDTagString is a UTF-8 string (max 32767 bytes)
-	// Payload is 2 bytes (len of data with short) + len bytes
+	// IDTagString is a UTF-8 string.
 	IDTagString // TagString
 
-	// IDTagList is a list of nameless tags, all tags need same type.
-	// Payload is 1 byte(tag type with byte) + 4 bytes(len with signed int) + len bytes
+	// IDTagList is a list of nameless tags, all tags are of the same type.
 	IDTagList // TagList
 
 	// IDTagCompound is a list of named tags.
@@ -55,5 +45,6 @@ const (
 	// IDTagLongArray is a array for long(8bytes).
 	IDTagLongArray // TagLongArray
 
+	// NumIDTags is the amount of ID tags that are known.
 	NumIDTags // amount of ID tags
 )
