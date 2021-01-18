@@ -74,21 +74,6 @@ var (
 			}
 		},
 	}
-	tagNames = [NumIDTags]string{
-		"End",
-		"Byte",
-		"Short",
-		"Int",
-		"Long",
-		"Float",
-		"Double",
-		"ByteArray",
-		"String",
-		"List",
-		"Compound",
-		"IntArray",
-		"LongArray",
-	}
 )
 
 func newTagFromID(id ID) (Tag, error) {

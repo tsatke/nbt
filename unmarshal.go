@@ -24,7 +24,7 @@ func unmarshalInto(tag Tag, target reflect.Value) error {
 		source := tag.(*ByteArray).Value
 		newTarget := reflect.MakeSlice(target.Type(), len(source), len(source))
 		for i := 0; i < newTarget.Len(); i++ {
-			newTarget.Index(i).SetUint(uint64(source[i]))
+			newTarget.Index(i).SetInt(int64(source[i]))
 		}
 		target.Set(newTarget)
 	case IDTagShort:

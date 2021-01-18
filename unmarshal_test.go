@@ -76,10 +76,10 @@ func (suite *UnmarshalSuite) TestUnmarshalReader_Byte() {
 }
 
 func (suite *UnmarshalSuite) TestUnmarshalReader_ByteArray() {
-	var target []byte
-	suite.writeTag(NewByteArrayTag("myName", []byte{1, 2, 3, 4, 5, 9}), binary.BigEndian)
+	var target []int8
+	suite.writeTag(NewByteArrayTag("myName", []int8{1, 2, 3, 4, 5, 9}), binary.BigEndian)
 	suite.NoError(UnmarshalReader(suite.buf, binary.BigEndian, &target))
-	suite.EqualValues([]byte{1, 2, 3, 4, 5, 9}, target)
+	suite.EqualValues([]int8{1, 2, 3, 4, 5, 9}, target)
 }
 
 func (suite *UnmarshalSuite) TestUnmarshalReader_Double() {

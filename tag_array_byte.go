@@ -7,7 +7,7 @@ import (
 )
 
 // NewByteArrayTag returns a new ByteArray tag
-func NewByteArrayTag(name string, val []byte) *ByteArray {
+func NewByteArrayTag(name string, val []int8) *ByteArray {
 	return &ByteArray{
 		tagBase: &tagBase{
 			name: name,
@@ -19,7 +19,7 @@ func NewByteArrayTag(name string, val []byte) *ByteArray {
 // ByteArray is a tag for []byte
 type ByteArray struct {
 	*tagBase
-	Value []byte
+	Value []int8
 }
 
 // ID returns tag id
@@ -37,7 +37,10 @@ func (t *ByteArray) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 	if err := read(reader, buf); err != nil {
 		return err
 	}
-	t.Value = buf
+	t.Value = make([]int8, arrLen)
+	for i := range buf {
+		t.Value[i] = int8(buf[i])
+	}
 	return nil
 }
 
@@ -45,13 +48,17 @@ func (t *ByteArray) WriteTo(writer io.Writer, order binary.ByteOrder) error {
 	if err := writeUint32(writer, order, uint32(len(t.Value))); err != nil {
 		return fmt.Errorf("write length: %w", err)
 	}
-	if err := write(writer, t.Value); err != nil {
+	buf := make([]byte, len(t.Value))
+	for i := range buf {
+		buf[i] = byte(t.Value[i])
+	}
+	if err := write(writer, buf); err != nil {
 		return err
 	}
 	return nil
 }
 
-// ToByteArray returns value as []byte
-func (t *ByteArray) ToByteArray() ([]byte, error) {
+// ToByteArray returns value as []int8
+func (t *ByteArray) ToByteArray() ([]int8, error) {
 	return t.Value, nil
 }
