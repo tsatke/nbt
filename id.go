@@ -2,6 +2,7 @@ package nbt
 
 //go:generate stringer -linecomment -type=ID
 
+// ID is a tag id, such as IDTagEnd or IDTagLongArray.
 type ID byte
 
 const (

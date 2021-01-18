@@ -109,3 +109,8 @@ func readFloat64(rd io.Reader, bo binary.ByteOrder) (float64, error) {
 	i, err := readUint64(rd, bo)
 	return math.Float64frombits(i), err
 }
+
+func read(rd io.Reader, buf []byte) error {
+	_, err := io.ReadAtLeast(rd, buf, len(buf))
+	return err
+}

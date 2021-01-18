@@ -76,3 +76,8 @@ func writeFloat32(w io.Writer, order binary.ByteOrder, i float32) error {
 func writeFloat64(w io.Writer, order binary.ByteOrder, i float64) error {
 	return writeUint64(w, order, math.Float64bits(i))
 }
+
+func write(w io.Writer, buf []byte) error {
+	_, err := w.Write(buf)
+	return err
+}
