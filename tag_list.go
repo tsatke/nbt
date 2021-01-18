@@ -42,8 +42,8 @@ func (t *List) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 		return fmt.Errorf("read list length: %w", err)
 	}
 
-	t.Value = make([]Tag, listLen)
-	for i := range t.Value {
+	t.Value = make([]Tag, 0) // MSER-11 remove preallocation
+	for i := uint32(0); i < listLen; i++ {
 		tag, err := newTagFromID(t.ListType)
 		if err != nil {
 			return fmt.Errorf("new tag: %w", err)
@@ -51,7 +51,7 @@ func (t *List) ReadFrom(reader io.Reader, order binary.ByteOrder) error {
 		if err := tag.ReadFrom(reader, order); err != nil {
 			return fmt.Errorf("read tag: %w", err)
 		}
-		t.Value[i] = tag
+		t.Value = append(t.Value, tag)
 	}
 
 	return nil
