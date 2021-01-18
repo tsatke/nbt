@@ -118,6 +118,34 @@ func (m *simpleMapper) MapLong(query string, target *int64) error {
 	return nil
 }
 
+func (m *simpleMapper) MapFloat(query string, target *float32) error {
+	res, err := m.Query(query)
+	if err != nil {
+		return err
+	}
+	switch res.ID() {
+	case IDTagFloat:
+		*target = res.(*Float).Value
+	default:
+		return fmt.Errorf("%s is not a float", query)
+	}
+	return nil
+}
+
+func (m *simpleMapper) MapDouble(query string, target *float64) error {
+	res, err := m.Query(query)
+	if err != nil {
+		return err
+	}
+	switch res.ID() {
+	case IDTagDouble:
+		*target = res.(*Double).Value
+	default:
+		return fmt.Errorf("%s is not a double", query)
+	}
+	return nil
+}
+
 func (m *simpleMapper) MapString(query string, target *string) error {
 	res, err := m.Query(query)
 	if err != nil {

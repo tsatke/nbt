@@ -32,6 +32,14 @@ type Mapper interface {
 	// store it under the given *int64, or return an error if the tag under the
 	// path is not a long tag.
 	MapLong(string, *int64) error
+	// MapFloat will interpret the tag under the given query path as float32 and
+	// store it under the given *float32, or return an error if the tag under the
+	// path is not a long tag.
+	MapFloat(string, *float32) error
+	// MapDouble will interpret the tag under the given query path as float64 and
+	// store it under the given *float64, or return an error if the tag under the
+	// path is not a long tag.
+	MapDouble(string, *float64) error
 	// MapString will interpret the tag under the given query path as string and
 	// store it under the given *string, or return an error if the tag under the
 	// path is not a string tag.

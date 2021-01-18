@@ -91,6 +91,8 @@ func (suite *MapperSuite) TestCompoundRoot() {
 			NewIntTag("sub2", 182763422),
 			NewLongTag("sub3", -76543567436213),
 			NewByteArrayTag("sub4", []int8{-2, -1, 0, 1, 2, 3}),
+			NewFloatTag("sub5", 1.5),
+			NewDoubleTag("sub6", -7.9),
 		}),
 		NewCompoundTag("second", []Tag{
 			NewCompoundTag("a", []Tag{
@@ -126,6 +128,8 @@ func (suite *MapperSuite) TestCompoundRoot() {
 		firstSub2 int
 		firstSub3 int64
 		firstSub4 []int8
+		firstSub5 float32
+		firstSub6 float64
 		foo       int16
 		arr       []int
 	)
@@ -133,6 +137,8 @@ func (suite *MapperSuite) TestCompoundRoot() {
 	suite.NoError(mapper.MapInt("first.sub2", &firstSub2))
 	suite.NoError(mapper.MapLong("first.sub3", &firstSub3))
 	suite.NoError(mapper.MapByteArray("first.sub4", &firstSub4))
+	suite.NoError(mapper.MapFloat("first.sub5", &firstSub5))
+	suite.NoError(mapper.MapDouble("first.sub6", &firstSub6))
 	suite.NoError(mapper.MapShort("second.a.b.c.d.e.f.foo", &foo))
 	suite.NoError(mapper.MapList("second.myList", func(size int) {
 		arr = make([]int, size)
@@ -143,6 +149,8 @@ func (suite *MapperSuite) TestCompoundRoot() {
 	suite.Equal(182763422, firstSub2)
 	suite.Equal(int64(-76543567436213), firstSub3)
 	suite.Equal([]int8{-2, -1, 0, 1, 2, 3}, firstSub4)
+	suite.Equal(float32(1.5), firstSub5)
+	suite.Equal(float64(-7.9), firstSub6)
 	suite.Equal(int16(-32768), foo)
 	suite.Equal([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, arr)
 }
