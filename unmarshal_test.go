@@ -69,7 +69,7 @@ func (suite *UnmarshalSuite) TestUnmarshalReader_IntArray() {
 }
 
 func (suite *UnmarshalSuite) TestUnmarshalReader_Byte() {
-	var target byte
+	var target int8
 	suite.writeTag(NewByteTag("myName", 17), binary.BigEndian)
 	suite.NoError(UnmarshalReader(suite.buf, binary.BigEndian, &target))
 	suite.EqualValues(17, target)

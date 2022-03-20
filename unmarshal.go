@@ -20,7 +20,7 @@ func UnmarshalReader(rd io.Reader, order binary.ByteOrder, v interface{}) error 
 func unmarshalInto(tag Tag, target reflect.Value) error {
 	switch tag.ID() {
 	case IDTagByte:
-		target.SetUint(uint64(tag.(*Byte).Value))
+		target.SetInt(int64(tag.(*Byte).Value))
 	case IDTagByteArray:
 		source := tag.(*ByteArray).Value
 		newTarget := reflect.MakeSlice(target.Type(), len(source), len(source))
