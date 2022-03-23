@@ -18,6 +18,11 @@ func UnmarshalReader(rd io.Reader, order binary.ByteOrder, v interface{}) error 
 }
 
 func unmarshalInto(tag Tag, target reflect.Value) error {
+	if tag == nil {
+		// nothing to do if the tag doesn't exist
+		return nil
+	}
+
 	switch tag.ID() {
 	case IDTagByte:
 		target.SetInt(int64(tag.(*Byte).Value))

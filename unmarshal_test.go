@@ -116,6 +116,22 @@ func (suite *UnmarshalSuite) TestUnmarshalReader_Compound() {
 	}, target)
 }
 
+func (suite *UnmarshalSuite) TestUnmarshalReader_NotExist() {
+	type t struct {
+		A string `nbt:"A"`
+		B string `nbt:"B"`
+	}
+	var target t
+	suite.writeTag(NewCompoundTag("myName", []Tag{
+		NewStringTag("A", "text"),
+	}), binary.BigEndian)
+	suite.NoError(UnmarshalReader(suite.buf, binary.BigEndian, &target))
+	suite.EqualValues(t{
+		A: "text",
+		B: "",
+	}, target)
+}
+
 func (suite *UnmarshalSuite) TestUnmarshalReader_NestedCompound() {
 	type n struct {
 		A, B string
